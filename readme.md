@@ -29,4 +29,3 @@ This Python application helps Virginia Tech students create and manage their cla
     python app.py
     ```
 2. Follow the on-screen instructions to search for courses and build your schedule.
-
