@@ -4,3 +4,8 @@ from scheduling_helper_code.get_music_class import *
 course = get_crn('2025', Semester.SPRING, '18445')
 
 print(get_music_class()[0].get_name())
+##TODO #4 test github issues
+
+
+##testing how a branch works
+#interesting
