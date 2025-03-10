@@ -11,7 +11,7 @@ This Python application helps Virginia Tech students create and manage their cla
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/CourseSchedulingApp.git
+    git clone https://github.com/CarterH93/CourseSchedulingApp
     ```
 2. Navigate to the project directory:
     ```bash
