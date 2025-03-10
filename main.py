@@ -1,5 +1,5 @@
 from vtt import *
-from scheduling_helper_code import get_music_class
+from scheduling_helper_code.get_music_class import *
 # can fnd course via CRN.
 course = get_crn('2025', Semester.SPRING, '18445')
 
