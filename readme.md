@@ -1,11 +1,10 @@
 # Course Scheduling App
 
-This Python application helps Virginia Tech students create and manage their class schedules efficiently.
+This Python application helps Virginia Tech students create their class schedules efficiently.
 
 ## Features
 
-- **Course Search**: Search for courses by name or CRN.
-- **Schedule Builder**: Easily add and remove courses to build your ideal schedule.
+- **Schedule Builder**: Creates different schedules based on given data.
 
 ## Installation
 
@@ -28,4 +27,3 @@ This Python application helps Virginia Tech students create and manage their cla
     ```bash
     python main.py
     ```
-2. Follow the on-screen instructions to search for courses and build your schedule.
