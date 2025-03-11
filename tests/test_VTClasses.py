@@ -1,4 +1,4 @@
-from scheduling_helper_code.VTCourse import *
+from scheduling_helper_code.VTClasses import *
 def test_convert_str_time():
 
     assert convert_str_time('10:00am') == datetime.time(10, 0)
@@ -14,5 +14,8 @@ def test_VTCourse():
     course = VTCourse(None, { Day.MONDAY: {('10:00am', '11:00am'), ('11:00am', '3:00pm')}}, '2025', Semester.SPRING, 'test') 
     assert course.get_schedule()[Day.MONDAY] == { (datetime.time(10, 0), datetime.time(11, 0)), (datetime.time(11, 0), datetime.time(15, 0)) }
 
+def test_crns_to_VTClass():
 
+    assert crns_to_VTClass('test', '2025', Semester.SPRING, {'19100'}).get_courses().pop().get_crn() == '19100'
+    assert len(crns_to_VTClass('test', '2025', Semester.SPRING, {'19100', '14906', '18445'}).get_courses()) == 3
 
