@@ -154,27 +154,21 @@ class VTCourse(Course):
 
 
 
-def crns_to_VTClass(name: str, year: str, semester: Semester, CRNs: Set[str]):
-    """
-    Converts a set of CRNs to a set of VTCourses.
-
-    Args:
-        CRNs (Set[str]): A set of CRNs.
-
-    Returns:
-        Set[VTCourse]: A set of VTCourses.
-    """
-    courses = set()
+def crns_to_courses(year: str, semester: Semester, CRNs: Set[str]):
+    courses = set[VTCourse]()
     for crn in CRNs:
         course = get_crn(year, semester, crn)
-        courses.add(course)
-    return VTClass(name, courses)
+        VT_course = VTCourse(course, None, course.get_year(), course.get_semester(), course.get_name())
+        courses.add(VT_course)
+    return courses
 
 
 class VTClass:
-    def __init__(self, name: str, courses: Set[VTCourse]):
+    def __init__(self, name: str, year: str, semester: Semester, courses: Set[VTCourse] = set()):
         self.name = name
         self.courses = courses
+        self.year = year
+        self.semester = semester
     
     def get_name(self) -> str:
         return self.name
@@ -182,9 +176,18 @@ class VTClass:
     def get_courses(self) -> Set[VTCourse]:
         return self.courses
     
+    def get_year(self) -> str:
+        return self.year
+    
+    def get_semester(self) -> Semester:
+        return self.semester
+    
+    def add_courses(self, courses: Set[str]):
+        self.courses.update(crns_to_courses(self.year, self.semester, courses))
+    
 
 class VTBreak(VTClass):
-    def __init__(self, name: str, schedule: Dict[Day, Set[Tuple[str, str]]]):
-         courses = { VTCourse(None, schedule, None, None, name) }
+    def __init__(self, name: str, year: str, semester: Semester, schedule: Dict[Day, Set[Tuple[str, str]]]):
+         courses = { VTCourse(None, schedule, year, semester, name) }
 
-         super().__init__(name, courses)
+         super().__init__(name, year, semester, courses)
