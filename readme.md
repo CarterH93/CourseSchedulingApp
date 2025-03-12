@@ -30,3 +30,4 @@ This Python application helps Virginia Tech students create their class schedule
     ```bash
     python main.py
     ```
+3. Your schedule will be generated into a file named results within the project directory.
