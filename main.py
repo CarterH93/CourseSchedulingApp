@@ -1,9 +1,7 @@
 from scheduling_helper_code.HokieScheduler import *
 
-#Schedule creater
-
 #Create Hokie_scheduler class
-scheduler1 = Hokie_Scheduler()
+scheduler = Hokie_Scheduler()
 
 
 #Create Classes
@@ -38,20 +36,21 @@ afternoon = VTBreak('afternoon', '2025', Semester.SPRING, {Day.MONDAY: {('5:00pm
 
 
 #Add classes and breaks to scheduler
-scheduler1.add_vtclass(CS)
-scheduler1.add_vtclass(Engineering)
-scheduler1.add_vtclass(MATH)
-scheduler1.add_vtclass(MUSIC)
-#scheduler1.add_vtclass(PHYSICS)
-#scheduler1.add_vtclass(LAB)
-scheduler1.add_vtclass(BIT)
-#scheduler1.add_vtclass(Break)
-scheduler1.add_vtclass(CINE)
-scheduler1.add_vtclass(afternoon)
+
+scheduler.add_vtclass(CS)
+scheduler.add_vtclass(Engineering)
+scheduler.add_vtclass(MATH)
+scheduler.add_vtclass(MUSIC)
+#scheduler.add_vtclass(PHYSICS)
+#scheduler.add_vtclass(LAB)
+scheduler.add_vtclass(BIT)
+#scheduler.add_vtclass(Break)
+scheduler.add_vtclass(CINE)
+scheduler.add_vtclass(afternoon)
 
 
 #Main function to call to generate schedule
-scheduler1.create_schedule_to_text_file()
+scheduler.create_schedule_to_text_file()
 
 
 

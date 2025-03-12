@@ -23,7 +23,10 @@ This Python application helps Virginia Tech students create their class schedule
 
 ## Usage
 
-1. Run the application:
+1. Edit data within the main.py file.
+    Add classes and breaks in this file to generate your schedule.
+
+2. Run the application:
     ```bash
     python main.py
     ```
