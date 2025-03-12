@@ -23,11 +23,10 @@ def test_crns_to_courses():
 def test_VTClass_add_courses():
     vtclass = VTClass('test', '2025', Semester.SPRING)
     vtclass.add_courses({'18445'})
-    assert vtclass.get_courses().pop().get_crn() == '18445'
-    vtclass.add_courses({'18445'})
-    assert vtclass.get_courses().pop().get_name() == 'Instrumental Ensemble Music'
+    assert vtclass.get_courses()[0].get_crn() == '18445'
+    assert vtclass.get_courses()[0].get_name() == 'Instrumental Ensemble Music'
     vtclass.add_courses({'14906', '17366'})
-    assert len(vtclass.get_courses()) == 2
+    assert len(vtclass.get_courses()) == 3
 
 def test_VTBreak():
     schedule = { Day.MONDAY: {('10:00am', '11:00am'), ('11:00am', '3:00pm')}, Day.TUESDAY: {('8:00am', '9:00am')} }

@@ -23,11 +23,10 @@ class Hokie_Scheduler:
 
 
     def does_not_interfere(self, VTClasses: list[VTClass], FirstVTClassIndex: int, FirstVTCourseIndex: int, SecondVTClassIndex: int, SecondVTCourseIndex: int) -> bool:
-        #TODO #9 first given course does not interfere with second given course
         firstCourse = VTClasses[FirstVTClassIndex].get_courses()[FirstVTCourseIndex]
         secondCourse = VTClasses[SecondVTClassIndex].get_courses()[SecondVTCourseIndex]
-  #       if firstCourse.
-        pass
+        return self.schedules_do_not_interfere(firstCourse.get_schedule(), secondCourse.get_schedule())
+          
     
 
     def schedules_do_not_interfere(self, schedule1: Dict[Day, Set[Tuple[datetime.time, datetime.time]]], schedule2: Dict[Day, Set[Tuple[datetime.time, datetime.time]]]) -> bool:

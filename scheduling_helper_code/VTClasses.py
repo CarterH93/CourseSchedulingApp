@@ -155,7 +155,7 @@ class VTCourse(Course):
 
 
 def crns_to_courses(year: str, semester: Semester, CRNs: Set[str]):
-    courses = set[VTCourse]()
+    courses = set()
     for crn in CRNs:
         course = get_crn(year, semester, crn)
         VT_course = VTCourse(course, None, course.get_year(), course.get_semester(), course.get_name())
@@ -164,7 +164,7 @@ def crns_to_courses(year: str, semester: Semester, CRNs: Set[str]):
 
 
 class VTClass:
-    def __init__(self, name: str, year: str, semester: Semester, courses: Set[VTCourse] = set()):
+    def __init__(self, name: str, year: str, semester: Semester, courses = set()):
         self.name = name
         self.courses = courses
         self.year = year
@@ -174,7 +174,7 @@ class VTClass:
         return self.name
     
     def get_courses(self) -> Set[VTCourse]:
-        return self.courses
+        return list(self.courses)
     
     def get_year(self) -> str:
         return self.year
