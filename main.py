@@ -62,13 +62,11 @@ scheduler1.add_vtclass(MATH)
 scheduler1.add_vtclass(MUSIC)
 scheduler1.add_vtclass(PHYSICS)
 scheduler1.add_vtclass(LAB)
-scheduler1.add_vtclass(Break)
+#scheduler1.add_vtclass(Break)
 
 schedule1 = scheduler1.create_schedules()
-print(schedule1)
-print(len(schedule1))
-print("done")
 scheduler1.readable_text_schedule()
+print(len(schedule1))
 
 
 

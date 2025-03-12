@@ -35,7 +35,10 @@ class Hokie_Scheduler:
         for course in past_courses:
             if not self.schedules_do_not_interfere(VTCourse.get_schedule(), course.get_schedule()):
                 return False
-        return True
+        if len(past_courses) == 1:
+            return True
+        else:
+            return True and self.does_not_interfere(past_courses[-1], past_courses[:-1])
           
     
 
