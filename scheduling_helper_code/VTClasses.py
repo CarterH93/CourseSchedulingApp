@@ -57,6 +57,24 @@ class VTCourse(Course):
         
     """
 
+    def readable_schedule(self) -> str:
+        """
+        Returns a human-readable string representation of the course schedule.
+
+        Returns:
+            str: A string representing the course schedule.
+        """
+        schedule = self.get_schedule()
+        schedule_str = ""
+        for day in schedule:
+            schedule_str += f"{day.name}: "
+            for time in schedule[day]:
+                start_time = time[0].strftime('%I:%M %p')
+                end_time = time[1].strftime('%I:%M %p')
+                schedule_str += f"{start_time} - {end_time}, "
+            schedule_str = schedule_str[:-2] + "\n"
+        return schedule_str
+
     def __init__(self, course: Course, schedule: Dict[Day, Set[Tuple[str, str]]], year: str, semester: Semester, name: str):
         if course == None:
             self.schedule = convert_str_schedule(schedule)

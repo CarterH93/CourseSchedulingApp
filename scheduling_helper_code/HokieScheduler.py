@@ -16,13 +16,17 @@ class Hokie_Scheduler:
     def recursive_schedule_check(self, index: int, VTClasses: List[VTClass], past_courses: list[VTCourse]):
         courses = VTClasses[index].get_courses()
         for course in courses:
-            if index == len(VTClasses) - 1:
+            if len(self.courseCombinations) >= 100:
+                #We have found 100 possible schedules. Stop the recursion.
+                return
+            elif index == len(VTClasses) - 1:
                 #we are at the end of the list of VTClasses
                 #Check if this course creates a valid schedule.
                 if self.does_not_interfere(course, past_courses):
                     schedule_course_combination = past_courses.copy()
                     schedule_course_combination.append(course)
                     self.courseCombinations.add(frozenset(schedule_course_combination))
+            
             else:
                 #We can still continue the recursion. Add current index of VTClasses and past courses to past_courses_addition
                 past_courses_addition = past_courses.copy()
@@ -30,7 +34,6 @@ class Hokie_Scheduler:
                 #+1 the index of next class.
                 self.recursive_schedule_check(index + 1, VTClasses, past_courses_addition)
         
-    #TODO #10 FIX THIS. Right now this only compares the last course to the other courses. Need to check every course against every other course.
     def does_not_interfere(self, VTCourse: VTCourse, past_courses: List[VTCourse]) -> bool:
         for course in past_courses:
             if not self.schedules_do_not_interfere(VTCourse.get_schedule(), course.get_schedule()):
@@ -53,10 +56,11 @@ class Hokie_Scheduler:
     
 
     def times_do_not_interfere(self, time1: Tuple[datetime.time, datetime.time], time2: Tuple[datetime.time, datetime.time]) -> bool:
-        print(f"Comparing times: {time1} and {time2}")  # Debug print statement
+       # print(f"Comparing times: {time1} and {time2}")  # Debug print statement
         if time1[1] <= time2[0] or time1[0] >= time2[1]:
             return True
         return False
+    
     
 
 
@@ -64,9 +68,37 @@ class Hokie_Scheduler:
 
         schedule = self.create_schedules()
 
-        for course_combination in schedule:
-            for course in course_combination:
-                print(course.get_name() + course.get_crn())
-            print("\n")
+        with open("results", "w") as file:
+            if len(schedule) == 0:
+                file.write("No possible schedules found")
+            elif len(schedule) == 100:
+                file.write("More than 100 possible schedules found. Try narrowing your search parameters. Will only show 100 schedule combinations.")
+            else:
+                file.write(f"{len(schedule)} possible schedules found")
+            file.write("\n")
+            file.write("\n")
+            for course_combination in schedule:
+                file.write("Potential Course Combination:")
+                file.write("\n")
+                file.write("\n")
+                for course in course_combination:
+                    file.write(course.get_name() + "  " + "CRN: " + course.get_crn())
+                    file.write("\n")
+                    file.write(course.readable_schedule())
+                    file.write("\n")
+                file.write("\n")
+                file.write("--------------------------------")
+                file.write("\n")
+                file.write("\n")
+            file.close()
+
+        if len(schedule) == 0:
+            print("No possible schedules found")
+        elif len(schedule) == 100:
+            print("More than 100 possible schedules found. Try narrowing your search parameters. Will only show 100 schedule combinations.")
+        else:
+            print(f"{len(schedule)} possible schedules found")
+
+        print("See saved file named results for full schedule combinations")
 
 
