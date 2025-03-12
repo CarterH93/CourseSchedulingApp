@@ -34,6 +34,8 @@ def convert_str_time(date_time):
     Returns:
         datetime.time: A time object representing the given time.
     """
+    if isinstance(date_time, datetime.time):
+        return date_time
 
     format = '%I:%M%p'
     datetime_str = datetime.datetime.strptime(date_time, format)
@@ -70,6 +72,8 @@ class VTCourse(Course):
             self.semester = course.get_semester()
             self.name = course.get_name()
     
+    
+
     def get_schedule(self):
         """
         Returns the course schedule.
@@ -89,7 +93,7 @@ class VTCourse(Course):
         if self.course != None:
             return self.course.get_crn()
         else:
-            return None
+            return "NONE"
 
     def get_subject(self) -> str:
         if self.course != None:
@@ -102,7 +106,7 @@ class VTCourse(Course):
         if self.course != None:
             return self._course_data['code']
         else:
-            return None
+            return "NONE"
         
 
     def get_name(self) -> str:
@@ -164,7 +168,7 @@ def crns_to_courses(year: str, semester: Semester, CRNs: Set[str]):
 
 
 class VTClass:
-    def __init__(self, name: str, year: str, semester: Semester, courses = set()):
+    def __init__(self, name: str, year: str, semester: Semester, courses):
         self.name = name
         self.courses = courses
         self.year = year
