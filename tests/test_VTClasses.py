@@ -21,7 +21,7 @@ def test_crns_to_courses():
     assert len(crns_to_courses('2025', Semester.SPRING, ['18445', '17366', '14906'])) == 3
 
 def test_VTClass_add_courses():
-    vtclass = VTClass('test', '2025', Semester.SPRING)
+    vtclass = VTClass('test', '2025', Semester.SPRING, set())
     vtclass.add_courses({'18445'})
     assert vtclass.get_courses()[0].get_crn() == '18445'
     assert vtclass.get_courses()[0].get_name() == 'Instrumental Ensemble Music'
