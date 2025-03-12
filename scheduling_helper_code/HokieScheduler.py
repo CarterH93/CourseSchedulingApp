@@ -7,9 +7,11 @@ class Hokie_Scheduler:
     def add_vtclass(self, vtclass: VTClass):
         self.vtclasses.add(vtclass)
 
+    #Main function to generate the schedules.
     def create_schedules(self) -> set[frozenset[VTCourse]]:
 
         vtclasses = list(self.vtclasses)
+        #Starts the recursive call.
         self.recursive_schedule_check(0, vtclasses, list[VTCourse]())
         return self.courseCombinations
 
@@ -25,6 +27,7 @@ class Hokie_Scheduler:
                 if self.does_not_interfere(course, past_courses):
                     schedule_course_combination = past_courses.copy()
                     schedule_course_combination.append(course)
+                    #Adding course combination to main variable
                     self.courseCombinations.add(frozenset(schedule_course_combination))
             
             else:
@@ -34,6 +37,7 @@ class Hokie_Scheduler:
                 #+1 the index of next class.
                 self.recursive_schedule_check(index + 1, VTClasses, past_courses_addition)
         
+        #Another recursive call to ensure schedules do not conflict
     def does_not_interfere(self, VTCourse: VTCourse, past_courses: List[VTCourse]) -> bool:
         for course in past_courses:
             if not self.schedules_do_not_interfere(VTCourse.get_schedule(), course.get_schedule()):
@@ -44,7 +48,7 @@ class Hokie_Scheduler:
             return True and self.does_not_interfere(past_courses[-1], past_courses[:-1])
           
     
-
+    #Compares two schedules and ensure the times do not interfere.
     def schedules_do_not_interfere(self, schedule1: Dict[Day, Set[Tuple[datetime.time, datetime.time]]], schedule2: Dict[Day, Set[Tuple[datetime.time, datetime.time]]]) -> bool:
         for day in schedule1:
             for time in schedule1[day]:
@@ -54,7 +58,7 @@ class Hokie_Scheduler:
                          return False
         return True
     
-
+    #Ensures two times do not conflict.
     def times_do_not_interfere(self, time1: Tuple[datetime.time, datetime.time], time2: Tuple[datetime.time, datetime.time]) -> bool:
        # print(f"Comparing times: {time1} and {time2}")  # Debug print statement
         if time1[1] <= time2[0] or time1[0] >= time2[1]:
@@ -63,8 +67,8 @@ class Hokie_Scheduler:
     
     
 
-
-    def readable_text_schedule(self) -> str:
+    #Saves schedule in readable format to file.
+    def create_schedule_to_text_file(self) -> str:
 
         schedule = self.create_schedules()
 

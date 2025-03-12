@@ -2,6 +2,7 @@ from vtt import *
 import datetime
 from collections import defaultdict
 
+#Converts schedule in string format to schedule in datetime format.
 def convert_str_schedule(schedule: Dict[Day, Set[Tuple[str, str]]]):
     """
     Converts a dictionary representation of a course schedule with string times to a dictionary representation of a course schedule with time objects.
@@ -21,7 +22,7 @@ def convert_str_schedule(schedule: Dict[Day, Set[Tuple[str, str]]]):
 
 
     
-
+#Converts string time to datetime time.
 def convert_str_time(date_time):
     """
     Converts a string representation of time to a time object.
@@ -42,7 +43,7 @@ def convert_str_time(date_time):
 
     return datetime_str.time()
 
-
+#Represents a course. Will have unqiue CRN. Also acts as a wrapper of python api course. In rewritten code just make this the main representation of course instead doing the wrapper mess.
 class VTCourse(Course):
     """
     VTCourse is a wrapper class for Course that provides additional functionality
@@ -184,7 +185,7 @@ def crns_to_courses(year: str, semester: Semester, CRNs: Set[str]):
         courses.add(VT_course)
     return courses
 
-
+#Main representation of a class. Will hold multiple courses inside of it. Example Class: Foundations of Engineering with VTCourse contained inside it with its different CRN numbers.
 class VTClass:
     def __init__(self, name: str, year: str, semester: Semester, courses):
         self.name = name
@@ -207,7 +208,7 @@ class VTClass:
     def add_courses(self, courses: Set[str]):
         self.courses.update(crns_to_courses(self.year, self.semester, courses))
     
-
+#Represents break in schedule. Basically the same thing as a VTClass but with a convienent initalizer.
 class VTBreak(VTClass):
     def __init__(self, name: str, year: str, semester: Semester, schedule: Dict[Day, Set[Tuple[str, str]]]):
          courses = { VTCourse(None, schedule, year, semester, name) }
